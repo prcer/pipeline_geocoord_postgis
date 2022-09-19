@@ -2,9 +2,9 @@
 
 # Instructions & Usage
 - Just make sure you have docker and docker-compose installed in the local machine
-- Navigate to root folder and run: `docker-compose up`
+- Navigate to root project folder and run: `docker-compose up`
 - To ingest data, just drop a CSV file (with the same format as the sample provided) into the folder ingestion/data_input
-  - File will start being ingested in chunks and will be renamed with a __PROCESSING__ suffix.
+  - File will start being ingested in chunks and will be renamed with a _PROCESSING_ suffix.
   - Once ingestion is done, file will be moved to ingestion/data_output folder (with the original name)
   - File process can also be monitored in details via logs from the ingestion container at: `/var/log/ingestion.log`
 - API will be available at `http://localhost:5000`. From local machine or inside the api container, functionality can be tested with script: `api/code/test/test_api.py`. Sample output:
