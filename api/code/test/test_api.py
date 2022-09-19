@@ -28,4 +28,4 @@ print(call_api(date='2018-05-28'))
 print(call_api(date='2018-05-28', region='Hamburg'))
 # "Catch-all" box
 print(call_api(date='2018-05-28', box='(-100 -100,-100 100,100 100,100 -100,-100 -100)'))
-print(call_api(date='2018-05-28', region='Hamburg', box='(-100 -100,-100 100,100 100,100 -100,-100 -100)'))
+print(call_api(date='2018-05-01', region='Turin', box='(-100 -100,-100 100,100 100,100 -100,-100 -100)'))
