@@ -12,27 +12,55 @@
   - File process can also be monitored in details via logs from the ingestion container at: `/var/log/ingestion.log`
 - API will be available at `http://localhost:5000`. From local machine or inside the api container, functionality can be tested with script: `api/code/test/test_api.py`. Sample output:
 ```
-http://localhost:5000/v1/weekly_avg_trips?date=2018-05-28
-400
-BAD REQUEST
-
-
-http://localhost:5000/v1/weekly_avg_trips?date=2018-05-28&region=Hamburg
-200
-OK
-{'weekly_avg_trips_by_box': {}, 'weekly_avg_trips_by_region': {'avg_trips_area': '8.00', 'compute_time_ms': 21.266, 'region': 'Hamburg', 'total_trips_area': '40', 'week_year': '22_2018'}}
-
-
-http://localhost:5000/v1/weekly_avg_trips?date=2018-05-28&box=(-100 -100,-100 100,100 100,100 -100,-100 -100)
-200
-OK
-{'weekly_avg_trips_by_box': {'avg_trips_area': '8.00', 'box_coords': '(-100 -100,-100 100,100 100,100 -100,-100 -100)', 'compute_time_ms': 19.742, 'total_trips_area': '96', 'week_year': '22_2018'}, 'weekly_avg_trips_by_region': {}}
-
-
-http://localhost:5000/v1/weekly_avg_trips?date=2018-05-28&region=Hamburg&box=(-100 -100,-100 100,100 100,100 -100,-100 -100)
-200
-OK
-{'weekly_avg_trips_by_box': {'avg_trips_area': '8.00', 'box_coords': '(-100 -100,-100 100,100 100,100 -100,-100 -100)', 'compute_time_ms': 38.007, 'total_trips_area': '96', 'week_year': '22_2018'}, 'weekly_avg_trips_by_region': {'avg_trips_area': '8.00', 'compute_time_ms': 38.007, 'region': 'Hamburg', 'total_trips_area': '40', 'week_year': '22_2018'}}
+Endpoint: http://localhost:5000/v1/weekly_avg_trips?date=2018-05-28
+Status code: 400
+Reason: BAD REQUEST
+None
+Endpoint: http://localhost:5000/v1/weekly_avg_trips?date=2018-05-28&region=Hamburg
+Status code: 200
+Reason: OK
+{
+    "weekly_avg_trips_by_box": {},
+    "weekly_avg_trips_by_region": {
+        "avg_trips_area": "12.00",
+        "compute_time_ms": 17.303,
+        "region": "Hamburg",
+        "total_trips_area": "60",
+        "week_year": "22_2018"
+    }
+}
+Endpoint: http://localhost:5000/v1/weekly_avg_trips?date=2018-05-28&box=(-100 -100,-100 100,100 100,100 -100,-100 -100)
+Status code: 200
+Reason: OK
+{
+    "weekly_avg_trips_by_box": {
+        "avg_trips_area": "12.00",
+        "box_coords": "(-100 -100,-100 100,100 100,100 -100,-100 -100)",
+        "compute_time_ms": 102.936,
+        "total_trips_area": "144",
+        "week_year": "22_2018"
+    },
+    "weekly_avg_trips_by_region": {}
+}
+Endpoint: http://localhost:5000/v1/weekly_avg_trips?date=2018-05-28&region=Hamburg&box=(-100 -100,-100 100,100 100,100 -100,-100 -100)
+Status code: 200
+Reason: OK
+{
+    "weekly_avg_trips_by_box": {
+        "avg_trips_area": "12.00",
+        "box_coords": "(-100 -100,-100 100,100 100,100 -100,-100 -100)",
+        "compute_time_ms": 42.366,
+        "total_trips_area": "144",
+        "week_year": "22_2018"
+    },
+    "weekly_avg_trips_by_region": {
+        "avg_trips_area": "12.00",
+        "compute_time_ms": 42.366,
+        "region": "Hamburg",
+        "total_trips_area": "60",
+        "week_year": "22_2018"
+    }
+}
 ```
 - Ingested data can be verified in postgres container:
 ```
