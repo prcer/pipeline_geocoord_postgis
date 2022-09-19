@@ -1,0 +1,47 @@
+---
+version: '2'
+services:
+  ingestion:
+    build:
+        context: ./ingestion
+        dockerfile: Dockerfile-ingestion
+    hostname: ingestion
+    container_name: ingestion
+    volumes:
+      - ./ingestion/data_input:/data_input
+      - ./ingestion/data_output:/data_output
+    depends_on:
+       - postgres
+    tty: true
+    environment:
+      POSTGRES_DB_URL: "postgresql://postgres_user:postgres_pwd@postgres:5432/trips_db"
+      POSTGRES_SCHEMA: "trips_data"
+      POSTGRES_TABLE: "trips"
+      CHUNK_SIZE: 10000
+
+  api:
+    build:
+        context: ./api
+        dockerfile: Dockerfile-api
+    hostname: api
+    container_name: api
+    depends_on:
+       - postgres
+    tty: true
+    ports:
+      - "5000:5000"
+    environment:
+      POSTGRES_DB_URL: "postgresql://postgres_user:postgres_pwd@postgres:5432/trips_db"
+      POSTGRES_SCHEMA: "trips_data"
+      POSTGRES_TABLE: "trips"
+  
+  postgres:
+    image: postgis/postgis
+    hostname: postgres
+    container_name: postgres
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: "postgres_user"
+      POSTGRES_PASSWORD: "postgres_pwd"
+      POSTGRES_DB: "trips_db"

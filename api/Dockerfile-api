@@ -1,0 +1,10 @@
+FROM python:3.8
+ADD code /opt/trips
+ADD requirements.txt /opt/trips
+RUN pip install -r /opt/trips/requirements.txt && \
+    apt-get update && \
+    apt-get install apt-file -y && \
+    apt-file update && apt-get install vim -y
+EXPOSE 5000
+# Sleep 30s before starting API to ensure postgres is up
+CMD sleep 30 && python /opt/trips/wsgi.py

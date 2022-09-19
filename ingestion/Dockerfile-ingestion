@@ -1,0 +1,10 @@
+FROM python:3.8
+ADD code /opt/trips
+ADD requirements.txt /opt/trips
+RUN apt-get update && \
+    apt-get install libgdal-dev -y && \
+    pip install -r /opt/trips/requirements.txt  && \
+    apt-get install apt-file -y && \
+    apt-file update && apt-get install vim -y
+CMD ["/opt/trips/ingestion.py"]
+ENTRYPOINT ["python"]
