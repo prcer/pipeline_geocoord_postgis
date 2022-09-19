@@ -1,4 +1,5 @@
 import requests
+import json
 
 HEADERS = {
     'Content-Type': 'application/json',
@@ -14,16 +15,17 @@ def call_api(date, region: str=None, box: str=None):
         endpoint = f'http://localhost:5000/v1/weekly_avg_trips?date={date}&box={box}'
     else:
         endpoint = f'http://localhost:5000/v1/weekly_avg_trips?date={date}'
-    print(endpoint)
+    print(f'Endpoint: {endpoint}')
     response = requests.get(endpoint, headers=HEADERS)
-    print(response.status_code)
-    print(response.reason)
+    print(f'Status code: {response.status_code}')
+    print(f'Reason: {response.reason}')
     if response.status_code == 200:
-        return response.json()
+        return json.dumps(response.json(), indent=4)
     else:
         return None
 
 print(call_api(date='2018-05-28'))
 print(call_api(date='2018-05-28', region='Hamburg'))
+# "Catch-all" box
 print(call_api(date='2018-05-28', box='(-100 -100,-100 100,100 100,100 -100,-100 -100)'))
 print(call_api(date='2018-05-28', region='Hamburg', box='(-100 -100,-100 100,100 100,100 -100,-100 -100)'))
