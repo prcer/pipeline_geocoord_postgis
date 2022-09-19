@@ -13,9 +13,11 @@
 Endpoint: http://localhost:5000/v1/weekly_avg_trips?date=2018-05-28 
 Status code: 400
 Reason: Required query param missing, at least one of is expected: 'box', 'region'
+
 Endpoint: http://localhost:5000/v1/weekly_avg_trips?date=2018-05-28&region=Hamburg
 Status code: 200
 Reason: OK
+Response:
 {
     "weekly_avg_trips_by_box": {},
     "weekly_avg_trips_by_region": {
@@ -26,9 +28,11 @@ Reason: OK
         "week_year": "22_2018"
     }
 }
+
 Endpoint: http://localhost:5000/v1/weekly_avg_trips?date=2018-05-28&box=(-100 -100,-100 100,100 100,100 -100,-100 -100)
 Status code: 200
 Reason: OK
+Response:
 {
     "weekly_avg_trips_by_box": {
         "avg_trips_area": "12.00",
@@ -39,9 +43,11 @@ Reason: OK
     },
     "weekly_avg_trips_by_region": {}
 }
+
 Endpoint: http://localhost:5000/v1/weekly_avg_trips?date=2018-05-01&region=Turin&box=(-100 -100,-100 100,100 100,100 -100,-100 -100)
 Status code: 200
 Reason: OK
+Response:
 {
     "weekly_avg_trips_by_box": {
         "avg_trips_area": "12.55",
