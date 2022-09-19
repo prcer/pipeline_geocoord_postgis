@@ -1,8 +1,5 @@
 # Pipeline Trips Ingestion into Postgis with Geospatial Metrics API
 
-# Functionality
-- ...
-
 # Instructions & Usage
 - Just make sure you have docker and docker-compose installed in the local machine
 - Navigate to root folder and run: `docker-compose up`
@@ -72,7 +69,12 @@ SELECT st_asgeojson(trunc_origin_coord) FROM trips_data.trips;
 - To terminate application, run: `docker-compose down`
 
 # Scalability
-- ...
+- Since we need to group by similar coordinates and time, the following columns were created to simplify the queries at the cost of using more space: `trunc_origin_coord`, `trunc_destination_coord`, `trip_hour`
+- Table is partitioned by week number of year by the week_year column. Since there is a limited number of trips that could happen in a given week, data would be roughly evenly distributed across partitions (even though the addition of datasources could increase the load with time).
+- Since computation must be supported by coordinates AND region, table is not further partitioned by region.
+- Scalability focused on query performance, thus adding indexes for `week_year` and `region columns`.
+- Performance constraints also depend on the expected latency while calling the API: if it is going to be called once a week to be used in a report is one thing, but if it is going to be integrated with a web app or real-time dashboard (current week, in this case), expected latency is much smaller.
+- A rigorous proof of scalibility up to 100M entries would involve simulating the data according with a reasonable date range and expected maximum number of trips per week (i.e., maximum partition size). In the worst case scenario, all 100M entries would be in a single week and performance would not benefit from partitioning.
 
 # Changes to host application in AWS
 - ...
