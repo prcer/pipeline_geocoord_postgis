@@ -80,14 +80,14 @@ def weekly_avg_trips():
     response_region = dict()
     response_box = dict()
     if region:
-        response_region = {"avg_trips_area": 0 if not results_region else results_region['weekly_avg'],
-                            "total_trips_area": 0 if not results_region else results_region['count_trips'],
+        response_region = {"avg_trips_area": 0 if not results_region else int(results_region['weekly_avg']),
+                            "total_trips_area": 0 if not results_region else int(results_region['count_trips']),
                             "region": region,
                             "week_year": week_year,
                             "compute_time_ms": elapsed_time_ms}
     if box:
-        response_box = {"avg_trips_area": 0 if not results_box else results_box['weekly_avg'],
-                        "total_trips_area": 0 if not results_box else results_box['count_trips'],
+        response_box = {"avg_trips_area": 0 if not results_box else int(results_box['weekly_avg']),
+                        "total_trips_area": 0 if not results_box else int(results_box['count_trips']),
                         "box_coords": box,
                         "week_year": week_year,
                         "compute_time_ms": elapsed_time_ms}
