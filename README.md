@@ -23,7 +23,7 @@ Reason: OK
     "weekly_avg_trips_by_box": {},
     "weekly_avg_trips_by_region": {
         "avg_trips_area": "12.00",
-        "compute_time_ms": 17.303,
+        "compute_time_ms": 21.055,
         "region": "Hamburg",
         "total_trips_area": "60",
         "week_year": "22_2018"
@@ -36,29 +36,29 @@ Reason: OK
     "weekly_avg_trips_by_box": {
         "avg_trips_area": "12.00",
         "box_coords": "(-100 -100,-100 100,100 100,100 -100,-100 -100)",
-        "compute_time_ms": 102.936,
+        "compute_time_ms": 35.48,
         "total_trips_area": "144",
         "week_year": "22_2018"
     },
     "weekly_avg_trips_by_region": {}
 }
-Endpoint: http://localhost:5000/v1/weekly_avg_trips?date=2018-05-28&region=Hamburg&box=(-100 -100,-100 100,100 100,100 -100,-100 -100)
+Endpoint: http://localhost:5000/v1/weekly_avg_trips?date=2018-05-01&region=Turin&box=(-100 -100,-100 100,100 100,100 -100,-100 -100)
 Status code: 200
 Reason: OK
 {
     "weekly_avg_trips_by_box": {
-        "avg_trips_area": "12.00",
+        "avg_trips_area": "12.55",
         "box_coords": "(-100 -100,-100 100,100 100,100 -100,-100 -100)",
-        "compute_time_ms": 42.366,
-        "total_trips_area": "144",
-        "week_year": "22_2018"
+        "compute_time_ms": 51.101,
+        "total_trips_area": "276",
+        "week_year": "18_2018"
     },
     "weekly_avg_trips_by_region": {
-        "avg_trips_area": "12.00",
-        "compute_time_ms": 42.366,
-        "region": "Hamburg",
-        "total_trips_area": "60",
-        "week_year": "22_2018"
+        "avg_trips_area": "13.71",
+        "compute_time_ms": 51.101,
+        "region": "Turin",
+        "total_trips_area": "96",
+        "week_year": "18_2018"
     }
 }
 ```
