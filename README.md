@@ -3,16 +3,15 @@
 # Instructions & Usage
 - Just make sure you have docker and docker-compose installed in the local machine
 - Navigate to root folder and run: `docker-compose up`
-- To ingest data, just drop a CSV file with the same format as the sample provide into the folder ingestion/data_input
-  - File will start ingestion and will be renamed with a _PROCESSING_ suffix.
-  - Once ingestion is done, file will be moved to ingestion/data_output folder (with the same original name)
+- To ingest data, just drop a CSV file (with the same format as the sample provided) into the folder ingestion/data_input
+  - File will start being ingested in chunks and will be renamed with a _PROCESSING_ suffix.
+  - Once ingestion is done, file will be moved to ingestion/data_output folder (with the original name)
   - File process can also be monitored in details via logs from the ingestion container at: `/var/log/ingestion.log`
 - API will be available at `http://localhost:5000`. From local machine or inside the api container, functionality can be tested with script: `api/code/test/test_api.py`. Sample output:
 ```
-Endpoint: http://localhost:5000/v1/weekly_avg_trips?date=2018-05-28
+Endpoint: http://localhost:5000/v1/weekly_avg_trips?date=2018-05-28 
 Status code: 400
-Reason: BAD REQUEST
-None
+Reason: Required query param missing, at least one of is expected: 'box', 'region'
 Endpoint: http://localhost:5000/v1/weekly_avg_trips?date=2018-05-28&region=Hamburg
 Status code: 200
 Reason: OK
@@ -70,12 +69,8 @@ SELECT st_asgeojson(trunc_origin_coord) FROM trips_data.trips;
 
 # Scalability
 - Since we need to group by similar coordinates and time, the following columns were created to simplify the queries at the cost of using more space: `trunc_origin_coord`, `trunc_destination_coord`, `trip_hour`
-- Table is partitioned by week number of year by the week_year column. Since there is a limited number of trips that could happen in a given week, data would be roughly evenly distributed across partitions (even though the addition of datasources could increase the load with time).
-- Since computation must be supported by coordinates AND region, table is not further partitioned by region.
-- Scalability focused on query performance, thus adding indexes for `week_year` and `region columns`.
+- Table is partitioned by week number of year with the `week_year` column. Since there is a limited number of trips that could happen in a given week, data would be roughly evenly distributed across partitions (even though the addition of datasources could increase that number with time).
+- Since computation must be supported weekly by coordinates AND region, table is only partitioned by week (and not further partitioned by region, for example).
+- Scalability focused on query performance, thus added indexes for `week_year` and `region` columns.
 - Performance constraints also depend on the expected latency while calling the API: if it is going to be called once a week to be used in a report is one thing, but if it is going to be integrated with a web app or real-time dashboard (current week, in this case), expected latency is much smaller.
-- A rigorous proof of scalibility up to 100M entries would involve simulating the data according with a reasonable date range and expected maximum number of trips per week (i.e., maximum partition size). In the worst case scenario, all 100M entries would be in a single week and performance would not benefit from partitioning.
-
-# Changes to host application in AWS
-- ...
-
+- A rigorous proof of scalability up to 100M entries would involve simulating the data according with a reasonable overall date range and expected maximum number of trips per week (i.e., maximum partition size). In the worst case scenario, all 100M entries would be in a single week and performance would not benefit from partitioning.
