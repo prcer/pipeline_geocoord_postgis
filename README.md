@@ -21,10 +21,10 @@ Response:
 {
     "weekly_avg_trips_by_box": {},
     "weekly_avg_trips_by_region": {
-        "avg_trips_area": "12.00",
+        "avg_trips_area": 12.00,
         "compute_time_ms": 21.055,
         "region": "Hamburg",
-        "total_trips_area": "60",
+        "total_trips_area": 60,
         "week_year": "22_2018"
     }
 }
@@ -35,10 +35,10 @@ Reason: OK
 Response:
 {
     "weekly_avg_trips_by_box": {
-        "avg_trips_area": "12.00",
+        "avg_trips_area": 12.00,
         "box_coords": "(-100 -100,-100 100,100 100,100 -100,-100 -100)",
         "compute_time_ms": 35.48,
-        "total_trips_area": "144",
+        "total_trips_area": 144,
         "week_year": "22_2018"
     },
     "weekly_avg_trips_by_region": {}
@@ -50,17 +50,17 @@ Reason: OK
 Response:
 {
     "weekly_avg_trips_by_box": {
-        "avg_trips_area": "12.55",
+        "avg_trips_area": 12.55,
         "box_coords": "(-100 -100,-100 100,100 100,100 -100,-100 -100)",
         "compute_time_ms": 51.101,
-        "total_trips_area": "276",
+        "total_trips_area": 276,
         "week_year": "18_2018"
     },
     "weekly_avg_trips_by_region": {
-        "avg_trips_area": "13.71",
+        "avg_trips_area": 13.71,
         "compute_time_ms": 51.101,
         "region": "Turin",
-        "total_trips_area": "96",
+        "total_trips_area": 96,
         "week_year": "18_2018"
     }
 }
